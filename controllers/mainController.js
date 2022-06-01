@@ -1,8 +1,17 @@
+const menu = require("../platos");
+
 module.exports = {
   home: (req, res) => {
-    res.render("index");
+    res.render("index", {
+      platos: menu,
+    });
   },
   detalleMenu: (req, res) => {
-    res.render("detalleMenu");
+    const elemento = menu.find((plato) => plato.id == req.params.id);
+    if (elemento) {
+      res.render("detalleMenu", { plato: elemento });
+    } else {
+      res.send("404 - Not Found");
+    }
   },
 };
